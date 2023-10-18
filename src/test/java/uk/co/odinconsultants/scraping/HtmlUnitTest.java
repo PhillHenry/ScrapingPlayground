@@ -1,5 +1,6 @@
 package uk.co.odinconsultants.scraping;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.junit.Assert;
@@ -17,6 +18,19 @@ public class HtmlUnitTest {
 
             final String pageAsText = page.asNormalizedText();
             Assert.assertTrue(pageAsText.contains("Support for the HTTP and HTTPS protocols"));
+        }
+    }
+    @Test
+    public void tikTok() throws Exception {
+//        try (final WebClient webClient = new WebClient(BrowserVersion.FIREFOX)) {
+        try (final WebClient webClient = new WebClient()) {
+            webClient.getOptions().setThrowExceptionOnScriptError(false);
+            final HtmlPage page = webClient.getPage("https://www.tiktok.com/foryou");
+
+            final String pageAsXml = page.asXml();
+
+            final String pageAsText = page.asNormalizedText();
+            System.out.println(pageAsText);
         }
     }
 }
